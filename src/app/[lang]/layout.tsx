@@ -1,6 +1,7 @@
 import { RootProvider } from "fumadocs-ui/provider/next";
 import { defineI18nUI } from "fumadocs-ui/i18n";
 import { i18n } from "@/lib/i18n";
+import { Lexend } from "next/font/google";
 import Script from "next/script";
 import englishTranslations from "@/../messages/en.json";
 
@@ -23,6 +24,10 @@ const { provider } = defineI18nUI(i18n, {
   translations,
 });
 
+const lexend = Lexend({
+  subsets: ["latin"],
+});
+
 export default async function RootLayout({
   children,
   params,
@@ -31,7 +36,7 @@ export default async function RootLayout({
   const dir = lang.startsWith("ar") ? "rtl" : "ltr";
 
   return (
-    <html lang={lang} dir={dir} suppressHydrationWarning>
+    <html className={lexend.className} lang={lang} dir={dir} suppressHydrationWarning>
       <body>
         <RootProvider i18n={provider(lang)}>
           {children}
